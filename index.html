@@ -18,8 +18,8 @@
             <a href="#" class="hover:text-white">SETTINGS</a>
         </nav>
         <div class="space-y-4">
-            <input type="text" placeholder="Enter Theme" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-white">
-            <textarea placeholder="Describe your GUI script and features" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-white h-24"></textarea>
+            <input id="themeInput" type="text" placeholder="Enter Theme" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-white">
+            <textarea id="contentInput" placeholder="Describe your GUI script and features" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-white h-24"></textarea>
             <button id="generateScript" class="w-full bg-pink-600 py-2 rounded text-white">Create Script</button>
         </div>
     </div>
@@ -29,9 +29,27 @@
     </div>
     <script>
         document.getElementById("generateScript").addEventListener("click", function() {
-            let theme = document.querySelector("input").value;
-            let content = document.querySelector("textarea").value;
-            document.getElementById("scriptOutput").textContent = `Theme: ${theme}\nContent: ${content}\n// Generated script will appear here`;
+            let theme = document.getElementById("themeInput").value;
+            let content = document.getElementById("contentInput").value;
+            
+            let generatedScript = `<!DOCTYPE html>
+<html>
+<head>
+    <title>${theme} UI</title>
+    <style>
+        body { background-color: #222; color: white; font-family: Arial, sans-serif; text-align: center; }
+        .container { margin: 50px auto; padding: 20px; width: 80%; max-width: 600px; background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>${theme} Interface</h1>
+        <p>${content}</p>
+    </div>
+</body>
+</html>`;
+            
+            document.getElementById("scriptOutput").textContent = generatedScript;
         });
     </script>
 </body>
