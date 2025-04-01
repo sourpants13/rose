@@ -18,8 +18,8 @@
             <a href="#" class="hover:text-white">SETTINGS</a>
         </nav>
         <div class="space-y-4">
-            <input id="themeInput" type="text" placeholder="Enter Theme" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-white">
-            <textarea id="contentInput" placeholder="Describe your GUI script and features" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-white h-24"></textarea>
+            <input id="themeInput" type="text" placeholder="Enter Theme (e.g., Futuristic, Hacker, Retro)" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-white">
+            <textarea id="contentInput" placeholder="Describe GUI elements (e.g., Neon Buttons, Cyber Grid, Pixelated UI)" class="w-full p-2 rounded bg-gray-800 border border-gray-700 text-white h-24"></textarea>
             <button id="generateScript" class="w-full bg-pink-600 py-2 rounded text-white">Create Script</button>
         </div>
     </div>
@@ -29,22 +29,34 @@
     </div>
     <script>
         document.getElementById("generateScript").addEventListener("click", function() {
-            let theme = document.getElementById("themeInput").value;
+            let theme = document.getElementById("themeInput").value.toLowerCase();
             let content = document.getElementById("contentInput").value;
+            
+            let themes = {
+                "futuristic": "body { background: #0a0a0a; color: #00fff7; font-family: Orbitron, sans-serif; } .container { background: #16213e; border-radius: 10px; padding: 20px; } button { background: #00fff7; color: #0a0a0a; }",
+                "binary": "body { background: black; color: #00ff00; font-family: Courier, monospace; } .container { background: #002200; border: 2px solid #00ff00; } button { background: #00ff00; color: black; }",
+                "hacker": "body { background: black; color: #33ff33; font-family: Consolas, monospace; } .container { background: #003300; border: 2px dashed #33ff33; } button { background: #33ff33; color: black; }",
+                "retro": "body { background: #ffcc00; color: #000; font-family: 'Press Start 2P', cursive; } .container { background: #ff6600; border: 4px solid #000; } button { background: #000; color: #ffcc00; }",
+                "neon": "body { background: #121212; color: #ff00ff; font-family: 'Neon Tubes', sans-serif; } .container { background: #222; border: 3px solid #ff00ff; } button { background: #ff00ff; color: #121212; }",
+                "cyberpunk": "body { background: #000; color: #ff0099; font-family: 'Orbitron', sans-serif; } .container { background: #222; border: 3px solid #ff0099; } button { background: #ff0099; color: #000; }",
+                "steampunk": "body { background: #3e2c1c; color: #c99c66; font-family: 'Garamond', serif; } .container { background: #5a3e2b; border: 3px solid #c99c66; } button { background: #c99c66; color: #3e2c1c; }",
+                "gothic": "body { background: #1a1a1a; color: #b0b0b0; font-family: 'Old English Text MT', serif; } .container { background: #333; border: 3px solid #b0b0b0; } button { background: #b0b0b0; color: #1a1a1a; }",
+                "vaporwave": "body { background: #ff66b2; color: #33ccff; font-family: 'Comic Sans MS', sans-serif; } .container { background: #ff33cc; border: 3px solid #33ccff; } button { background: #33ccff; color: #ff33cc; }",
+                "minimalist": "body { background: #f8f8f8; color: #333; font-family: 'Arial', sans-serif; } .container { background: #fff; border: 1px solid #ddd; } button { background: #333; color: #fff; }"
+            };
+            
+            let styles = themes[theme] || "body { background: #222; color: white; font-family: Arial, sans-serif; } .container { background: #333; border-radius: 10px; padding: 20px; } button { background: gray; color: white; }";
             
             let generatedScript = `<!DOCTYPE html>
 <html>
 <head>
-    <title>${theme} UI</title>
-    <style>
-        body { background-color: #222; color: white; font-family: Arial, sans-serif; text-align: center; }
-        .container { margin: 50px auto; padding: 20px; width: 80%; max-width: 600px; background: #333; border-radius: 10px; }
-    </style>
+    <title>${content}</title>
+    <style>${styles}</style>
 </head>
 <body>
     <div class="container">
-        <h1>${theme} Interface</h1>
-        <p>${content}</p>
+        <h1>${content}</h1>
+        <button>Click Me</button>
     </div>
 </body>
 </html>`;
